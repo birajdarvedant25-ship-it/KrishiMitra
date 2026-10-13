@@ -1,0 +1,9 @@
+{
+  "appId": "com.krishimitra.app",
+  "appName": "KrishiMitra",
+  "webDir": "frontend/dist",
+  "server": {
+    "cleartext": true,
+    "androidScheme": "http"
+  }
+}

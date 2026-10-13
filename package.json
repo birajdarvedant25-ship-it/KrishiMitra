@@ -1,0 +1,28 @@
+{
+  "name": "krishimitra",
+  "version": "1.0.0",
+  "description": "KrishiMitra - AI-Powered Farming Assistant for Indian Farmers",
+  "private": true,
+  "scripts": {
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "build:backend": "npm --prefix backend run build",
+    "build:frontend": "npm --prefix frontend run build",
+    "build": "npm run build:backend && npm run build:frontend",
+    "test": "npm --prefix backend test",
+    "cap:sync": "npx cap sync android",
+    "cap:build": "npm run build:frontend && npx cap sync android",
+    "cap:open": "npx cap open android"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.2",
+    "concurrently": "^9.1.2"
+  },
+  "author": "KrishiMitra Team",
+  "license": "MIT",
+  "dependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/core": "^8.5.2"
+  }
+}
