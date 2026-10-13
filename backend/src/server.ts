@@ -1,9 +1,12 @@
 import { app } from './app.js';
 import { config } from './config/index.js';
 
-// Start Server on 0.0.0.0:5000 (accessible on localhost and Android/LAN)
-const server = app.listen(config.port, config.host, () => {
-  console.log(`
+let server: any = null;
+
+// Start server listener for local dev, standalone Node, LAN, or port-driven environments
+if (!process.env.VERCEL || process.env.PORT) {
+  server = app.listen(config.port, config.host, () => {
+    console.log(`
 🌾 ======================================================== 🌾
    KrishiMitra Backend running on:
    - Host: ${config.host}:${config.port}
@@ -13,14 +16,15 @@ const server = app.listen(config.port, config.host, () => {
    Gemini API Key: ${config.geminiApiKey ? 'CONFIGURED' : 'MOCK / FALLBACK'}
    OpenAI API Key: ${config.openaiApiKey ? 'CONFIGURED' : 'MOCK / FALLBACK'}
 🌾 ======================================================== 🌾
-  `);
-}).on('error', (err: any) => {
-  if (err.code === 'EADDRINUSE') {
-    console.log(`[SERVER] Port ${config.port} is already in use. Reusing running server.`);
-  } else {
-    console.error('[SERVER] Startup error:', err);
-  }
-});
+    `);
+  }).on('error', (err: any) => {
+    if (err.code === 'EADDRINUSE') {
+      console.log(`[SERVER] Port ${config.port} is already in use. Reusing running server.`);
+    } else {
+      console.error('[SERVER] Startup error:', err);
+    }
+  });
+}
 
 export { app, server };
 export default app;
