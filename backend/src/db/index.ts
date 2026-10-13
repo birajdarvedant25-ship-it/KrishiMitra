@@ -94,9 +94,34 @@ class Database {
   constructor() {
     this.dbPath = config.databasePath;
     const dir = path.dirname(this.dbPath);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
+    try {
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+    } catch (err) {
+      console.warn('[DB] Could not ensure directory exists:', err);
     }
+
+    // Seed file fallback if destination file doesn't exist yet (e.g. /tmp on Vercel)
+    if (!fs.existsSync(this.dbPath)) {
+      const candidateSeeds = [
+        path.resolve(process.cwd(), 'backend/data/krishimitra.json'),
+        path.resolve(process.cwd(), 'data/krishimitra.json'),
+        path.resolve(__dirname, '../../data/krishimitra.json'),
+        path.resolve(__dirname, '../../../data/krishimitra.json')
+      ];
+      for (const seed of candidateSeeds) {
+        if (fs.existsSync(seed)) {
+          try {
+            fs.copyFileSync(seed, this.dbPath);
+            break;
+          } catch {
+            // ignore and fallback
+          }
+        }
+      }
+    }
+
     this.data = this.load();
   }
 
@@ -115,7 +140,32 @@ class Database {
         };
       }
     } catch (err) {
-      console.error('Error loading database file, initializing clean state:', err);
+      console.error('Error loading database file, checking candidate seeds:', err);
+    }
+
+    const candidateSeeds = [
+      path.resolve(process.cwd(), 'backend/data/krishimitra.json'),
+      path.resolve(process.cwd(), 'data/krishimitra.json'),
+      path.resolve(__dirname, '../../data/krishimitra.json'),
+      path.resolve(__dirname, '../../../data/krishimitra.json')
+    ];
+    for (const seed of candidateSeeds) {
+      try {
+        if (fs.existsSync(seed)) {
+          const raw = fs.readFileSync(seed, 'utf-8');
+          const parsed = JSON.parse(raw);
+          return {
+            users: parsed.users || [],
+            farmerProfiles: parsed.farmerProfiles || [],
+            crops: parsed.crops || [],
+            diseaseAnalyses: parsed.diseaseAnalyses || [],
+            alerts: parsed.alerts || [],
+            chatMessages: parsed.chatMessages || [],
+          };
+        }
+      } catch {
+        // continue
+      }
     }
 
     return {
@@ -129,9 +179,17 @@ class Database {
   }
 
   private save(): void {
-    const tempPath = `${this.dbPath}.tmp`;
-    fs.writeFileSync(tempPath, JSON.stringify(this.data, null, 2), 'utf-8');
-    fs.renameSync(tempPath, this.dbPath);
+    try {
+      const dir = path.dirname(this.dbPath);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+      const tempPath = `${this.dbPath}.tmp`;
+      fs.writeFileSync(tempPath, JSON.stringify(this.data, null, 2), 'utf-8');
+      fs.renameSync(tempPath, this.dbPath);
+    } catch (err) {
+      console.warn('[DB] Warning: could not persist database to disk:', err);
+    }
   }
 
   // Users

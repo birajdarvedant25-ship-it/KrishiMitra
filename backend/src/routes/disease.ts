@@ -11,13 +11,22 @@ import { config } from '../config/index.js';
 export const diseaseRouter = Router();
 
 // Ensure upload directory exists
-if (!fs.existsSync(config.uploadDir)) {
-  fs.mkdirSync(config.uploadDir, { recursive: true });
+try {
+  if (!fs.existsSync(config.uploadDir)) {
+    fs.mkdirSync(config.uploadDir, { recursive: true });
+  }
+} catch (err) {
+  console.warn('[UPLOAD] Upload directory notice:', err);
 }
 
 // Multer storage configuration
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => {
+    try {
+      if (!fs.existsSync(config.uploadDir)) {
+        fs.mkdirSync(config.uploadDir, { recursive: true });
+      }
+    } catch {}
     cb(null, config.uploadDir);
   },
   filename: (_req, file, cb) => {
@@ -69,8 +78,12 @@ diseaseRouter.post(
         }
         filename = `capture-${Date.now()}.jpg`;
         const savePath = path.join(config.uploadDir, filename);
-        fs.writeFileSync(savePath, imageBuffer);
-        imageUrl = `/uploads/${filename}`;
+        try {
+          fs.writeFileSync(savePath, imageBuffer);
+          imageUrl = `/uploads/${filename}`;
+        } catch {
+          imageUrl = `data:${mimeType};base64,${imageBuffer.toString('base64')}`;
+        }
       }
 
       // Check if image was received

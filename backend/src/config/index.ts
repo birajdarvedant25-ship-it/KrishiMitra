@@ -27,15 +27,23 @@ for (const envPath of possibleEnvPaths) {
 const rawAiMode = (process.env.AI_MODE || 'mock').trim().toLowerCase();
 const resolvedAiMode = rawAiMode === 'production' ? 'production' : 'mock';
 
+const isVercel = Boolean(process.env.VERCEL);
+const defaultDbPath = isVercel
+  ? path.join('/tmp', 'krishimitra.json')
+  : path.resolve(__dirname, '../../data/krishimitra.json');
+const defaultUploadDir = isVercel
+  ? path.join('/tmp', 'uploads')
+  : path.resolve(__dirname, '../../uploads');
+
 export const config = {
   host: process.env.HOST || '0.0.0.0',
   port: parseInt(process.env.PORT || '5000', 10),
   clientUrl: process.env.CLIENT_URL || 'http://localhost:5173',
   jwtSecret: process.env.JWT_SECRET || 'krishimitra_super_secret_jwt_key_2026_dev',
   aiMode: resolvedAiMode as 'mock' | 'production',
-  geminiApiKey: process.env.GEMINI_API_KEY?.trim() || '',
+  geminiApiKey: (process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY)?.trim() || '',
   openaiApiKey: process.env.OPENAI_API_KEY?.trim() || '',
   weatherApiKey: process.env.WEATHER_API_KEY?.trim() || '',
-  databasePath: process.env.DATABASE_PATH || path.resolve(__dirname, '../../data/krishimitra.json'),
-  uploadDir: path.resolve(__dirname, '../../uploads')
+  databasePath: process.env.DATABASE_PATH || defaultDbPath,
+  uploadDir: process.env.UPLOAD_DIR || defaultUploadDir
 };

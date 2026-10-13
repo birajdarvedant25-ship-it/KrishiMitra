@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "KrishiMitra - AI-Powered Farming Assistant for Indian Farmers",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev:backend": "npm --prefix backend run dev",
     "dev:frontend": "npm --prefix frontend run dev",
@@ -10,19 +11,37 @@
     "build:backend": "npm --prefix backend run build",
     "build:frontend": "npm --prefix frontend run build",
     "build": "npm run build:backend && npm run build:frontend",
+    "vercel-build": "npm --prefix backend install && npm --prefix frontend install && npm run build",
     "test": "npm --prefix backend test",
     "cap:sync": "npx cap sync android",
     "cap:build": "npm run build:frontend && npx cap sync android",
     "cap:open": "npx cap open android"
   },
-  "devDependencies": {
-    "@capacitor/cli": "^8.5.2",
-    "concurrently": "^9.1.2"
-  },
-  "author": "KrishiMitra Team",
-  "license": "MIT",
   "dependencies": {
     "@capacitor/android": "^8.5.2",
-    "@capacitor/core": "^8.5.2"
-  }
+    "@capacitor/core": "^8.5.2",
+    "@google/generative-ai": "^0.24.0",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "openai": "^4.86.1",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.2",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.8",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.13.5",
+    "@types/uuid": "^10.0.0",
+    "concurrently": "^9.1.2",
+    "typescript": "^5.7.3"
+  },
+  "author": "KrishiMitra Team",
+  "license": "MIT"
 }
