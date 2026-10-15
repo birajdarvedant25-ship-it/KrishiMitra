@@ -4,7 +4,7 @@ import { config } from './config/index.js';
 let server: any = null;
 
 // Start server listener for local dev, standalone Node, LAN, or port-driven environments
-if (!process.env.VERCEL || process.env.PORT) {
+if (!process.env.VERCEL) {
   server = app.listen(config.port, config.host, () => {
     console.log(`
 🌾 ======================================================== 🌾
