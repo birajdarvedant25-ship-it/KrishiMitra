@@ -209,4 +209,4 @@ The application is built **mobile-first**:
 ## 📄 License
 MIT License. Created with ❤️ for Indian farmers.
 #   K r i s h i M i t r a  
- 
+ "# KrishiMitra" 
