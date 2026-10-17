@@ -1,0 +1,29 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "npm run vercel-build",
+  "outputDirectory": "frontend/dist",
+  "rewrites": [
+    {
+      "source": "/api",
+      "destination": "/api/index.ts"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "/api/[...path].ts"
+    },
+    {
+      "source": "/uploads/:path*",
+      "destination": "/api/[...path].ts"
+    },
+    {
+      "source": "/((?!api|uploads).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "functions": {
+    "api/**": {
+      "includeFiles": "backend/data/**"
+    }
+  }
+}

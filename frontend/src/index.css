@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-stone-50 text-stone-900 font-sans antialiased min-h-screen selection:bg-emerald-200 selection:text-emerald-900;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Custom scrollbars and accessible focus styles */
+:focus-visible {
+  outline: 2px solid #16a34a;
+  outline-offset: 2px;
+}
+
+/* Print/Mobile optimizations */
+@media (max-width: 640px) {
+  input, select, textarea, button {
+    font-size: 16px !important; /* Prevents auto-zoom on iOS */
+  }
+}

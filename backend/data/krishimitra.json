@@ -1,0 +1,421 @@
+{
+  "users": [
+    {
+      "id": "82a40cdc-005e-4b7f-b561-c9f38f478b65",
+      "name": "Ramesh Patil",
+      "emailOrPhone": "testfarmer_1790781119050@krishi.com",
+      "passwordHash": "$2b$10$8PGNT22ZxylnHUHsTFlaueHsWVcH2Oom345Xkpe/2aX884L9BSxIm",
+      "preferredLanguage": "mr",
+      "state": "Maharashtra",
+      "district": "Nashik",
+      "village": "",
+      "onboardingCompleted": false,
+      "createdAt": "2026-09-30T15:11:59.344Z",
+      "updatedAt": "2026-09-30T15:11:59.344Z"
+    },
+    {
+      "id": "d0a8258a-98cd-4bd6-ade5-83a4daecb580",
+      "name": "Abc",
+      "emailOrPhone": "abc@1234",
+      "passwordHash": "$2b$10$UyNsKc79Rmm0Galnwvn2jeCJJPxBNnmULesIUum.J8jSJiAerOx.K",
+      "preferredLanguage": "mr",
+      "state": "Maharashtra",
+      "district": "Dharashiv",
+      "village": "Omerga",
+      "onboardingCompleted": true,
+      "createdAt": "2026-09-30T15:23:52.956Z",
+      "updatedAt": "2026-09-30T15:52:41.030Z"
+    }
+  ],
+  "farmerProfiles": [
+    {
+      "userId": "d0a8258a-98cd-4bd6-ade5-83a4daecb580",
+      "farmSizeAcres": 10,
+      "soilType": "Medium Black Soil",
+      "irrigationMethod": "Flood / Furrow",
+      "updatedAt": "2026-09-30T15:52:41.033Z"
+    }
+  ],
+  "crops": [
+    {
+      "id": "ed703e6f-0701-44b1-9d10-580ffdd2a612",
+      "userId": "d0a8258a-98cd-4bd6-ade5-83a4daecb580",
+      "cropName": "Soybean",
+      "variety": "",
+      "growthStage": "Vegetative",
+      "farmLocation": "Dharashiv",
+      "soilType": "Medium Black Soil",
+      "irrigationMethod": "Flood / Furrow",
+      "createdAt": "2026-09-30T15:25:01.270Z"
+    },
+    {
+      "id": "f7351ab5-d81e-4d63-b746-3d7b10745ea7",
+      "userId": "d0a8258a-98cd-4bd6-ade5-83a4daecb580",
+      "cropName": "Sugarcane",
+      "variety": "",
+      "growthStage": "Vegetative",
+      "farmLocation": "Dharashiv",
+      "soilType": "Medium Black Soil",
+      "irrigationMethod": "Flood / Furrow",
+      "createdAt": "2026-09-30T15:25:01.272Z"
+    }
+  ],
+  "diseaseAnalyses": [
+    {
+      "id": "35c534f6-1f3b-4bbb-a75b-13f7a0c99599",
+      "imageUrl": "/uploads/sample-leaf.jpg",
+      "cropIdentified": "टोमॅटो / बटाटा",
+      "possibleIssue": "करपा / अर्ली ब्लाइट",
+      "confidence": 88,
+      "symptoms": [
+        "खालच्या जुन्या पानांवर काळे-तपकिरी गोलाकार चक्राकार डाग (टार्गेट बोर्डसारखे)",
+        "डागांभोवती पिवळसर कडा",
+        "झाडाची खालची पाने पिवळी पडून गळणे",
+        "खोडावर काळपट चट्टे पडणे"
+      ],
+      "severity": "medium",
+      "organicSolutions": [
+        "रोगट झालेली खालची पाने खुडून शेताबाहेर नष्ट करा, ज्यामुळे हवा खेळती राहील",
+        "प्रमाणित कडुनिंब तेल (३-५ मिली प्रति लिटर पाणी) सौम्य साबणासह फवारा",
+        "५% आंबट ताकाचे द्रावण सकाळी पानांवर फवारा",
+        "पानांवर पाणी पडू देऊ नका; ठिबक सिंचनाचा वापर करा जेणेकरून ओलावा साचणार नाही",
+        "दर १२-१४ दिवसांनी जिवामृत किंवा दशपर्णी अर्काचा फवारा देऊन रोगप्रतिकारशक्ती वाढवा"
+      ],
+      "biologicalSolutions": [
+        "ट्रायकोडर्मा व्हिरीडी किंवा ट्रायकोडर्मा हरझियानम (५ ग्रॅम प्रति लिटर पाणी) पानांवर फवारा",
+        "सुडोमोनास फ्लोरोसन्स (१० ग्रॅम प्रति लिटर) जमिनीतून व पानांवर द्यावे"
+      ],
+      "additionalTreatment": [
+        "प्रादुर्भाव आर्थिक नुकसान पातळी ओलांडल्यास जवळच्या कृषी विज्ञान केंद्रातील (KVK) तज्ज्ञांचा सल्ला घ्या",
+        "कृषी विद्यापीठाने शिफारस केलेले कॉपर ऑक्सिक्लोराईड किंवा मँकोझेब लेबल निर्देशांनुसार वापरा",
+        "औषध फवारताना मास्क, हातमोजे वापरा आणि लेबलवर दिलेला काढणीपूर्व प्रतीक्षा कालावधी (PHI) पाळा"
+      ],
+      "prevention": [
+        "टोमॅटोनंतर वांगी किंवा बटाटा लावू नका; योग्य पीकपालट करा",
+        "रोपांमध्ये योग्य अंतर (६० x ४५ सेंमी) ठेवा जेणेकरून हवा आणि ऊन योग्य मिळेल",
+        "मातीतील बुरशी पानांवर उडू नये म्हणून आच्छादन (मल्चिंग) करा",
+        "प्रमाणित आणि रोगप्रतिकारक जातींच्या रोपांची निवड करा"
+      ],
+      "warning": "केवळ एआय अंदाज: हे विश्लेषण छायाचित्रातील लक्षणांवर आधारित असून प्रयोगशाळा चाचणीचा पर्याय नाही. कोणताही मोठा रासायनिक उपाय करण्यापूर्वी स्थानिक कृषी सहाय्यक किंवा केव्हीके शास्त्रज्ञांचा सल्ला घ्या.",
+      "language": "mr",
+      "createdAt": "2026-09-30T15:12:01.782Z"
+    },
+    {
+      "id": "16f4588c-5f49-491a-a4d1-b96f3db49f86",
+      "imageUrl": "/uploads/sample-leaf.jpg",
+      "cropIdentified": "कपास",
+      "possibleIssue": "गुलाबी सुंडी (पिंक बॉलवॉर्म)",
+      "confidence": 88,
+      "symptoms": [
+        "गुलाब जैसी सिकुड़ी हुई फूल कलियां (रोसेटेड फूल) जो पूरी नहीं खिलतीं",
+        "कपास के टिंडों पर छोटे छिद्र और मल का जमाव",
+        "टिंडों का समय से पहले गिरना और खराब रुई"
+      ],
+      "severity": "medium",
+      "organicSolutions": [
+        "निगरानी हेतु 8-10 फेरोमोन ट्रैप (पेक्टिनोल्योर) प्रति एकड़ लगाएं",
+        "सिकुड़े हुए रोसेटेड फूलों और गिरे हुए प्रभावित टिंडों को इकट्ठा कर नष्ट करें",
+        "फूल आते समय 5% नीम बीज अर्क (NSKE) या नीम तेल (1500 ppm) का छिड़काव करें",
+        "कपास की फसल को अनावश्यक अधिक समय तक न खींचें"
+      ],
+      "biologicalSolutions": [
+        "ट्राइकोग्रामा बैक्ट्रे परजीवी अंडों (Trichogramma bactrae) का खेत में साप्ताहिक प्रयोग",
+        "ब्युवेरिया बासियाना (10 ग्राम/लीटर) का शाम के समय छिड़काव"
+      ],
+      "additionalTreatment": [
+        "जब कीट आर्थिक नुकसान स्तर (ETL - लगातार 3 दिन 8 पतंगे/ट्रैप) पार करे तभी विशेषज्ञ की राय लें",
+        "सरकारी कृषि विभाग द्वारा स्वीकृत कीटनाशक ही अनुशंसित मात्रा में उपयोग करें"
+      ],
+      "prevention": [
+        "मई-जून में गहरी गर्मी की जुताई करें ताकि सुंडी की प्यूपा धूप से नष्ट हो जाएं",
+        "दिसंबर तक फसल की कटाई पूर्ण कर जीवन चक्र को तोड़ें",
+        "अंतिम चुनाई के बाद अवशेषों को नष्ट करें"
+      ],
+      "warning": "केवल एआई मूल्यांकन: यह विश्लेषण केवल दृष्टिगत लक्षणों पर आधारित है और प्रयोगशाला जांच का विकल्प नहीं है। किसी भी रासायनिक उपचार से पहले स्थानीय कृषि विशेषज्ञ या केवीके से परामर्श लें।",
+      "language": "hi",
+      "createdAt": "2026-09-30T15:12:01.798Z"
+    },
+    {
+      "id": "f2b368db-15c6-4a91-9520-f2496035da25",
+      "userId": "d0a8258a-98cd-4bd6-ade5-83a4daecb580",
+      "imageUrl": "/uploads/crop-1790782489029-1c811ebe.jpeg",
+      "cropIdentified": "टोमॅटो / बटाटा",
+      "possibleIssue": "करपा / अर्ली ब्लाइट",
+      "confidence": 88,
+      "symptoms": [
+        "खालच्या जुन्या पानांवर काळे-तपकिरी गोलाकार चक्राकार डाग (टार्गेट बोर्डसारखे)",
+        "डागांभोवती पिवळसर कडा",
+        "झाडाची खालची पाने पिवळी पडून गळणे",
+        "खोडावर काळपट चट्टे पडणे"
+      ],
+      "severity": "medium",
+      "organicSolutions": [
+        "रोगट झालेली खालची पाने खुडून शेताबाहेर नष्ट करा, ज्यामुळे हवा खेळती राहील",
+        "प्रमाणित कडुनिंब तेल (३-५ मिली प्रति लिटर पाणी) सौम्य साबणासह फवारा",
+        "५% आंबट ताकाचे द्रावण सकाळी पानांवर फवारा",
+        "पानांवर पाणी पडू देऊ नका; ठिबक सिंचनाचा वापर करा जेणेकरून ओलावा साचणार नाही",
+        "दर १२-१४ दिवसांनी जिवामृत किंवा दशपर्णी अर्काचा फवारा देऊन रोगप्रतिकारशक्ती वाढवा"
+      ],
+      "biologicalSolutions": [
+        "ट्रायकोडर्मा व्हिरीडी किंवा ट्रायकोडर्मा हरझियानम (५ ग्रॅम प्रति लिटर पाणी) पानांवर फवारा",
+        "सुडोमोनास फ्लोरोसन्स (१० ग्रॅम प्रति लिटर) जमिनीतून व पानांवर द्यावे"
+      ],
+      "additionalTreatment": [
+        "प्रादुर्भाव आर्थिक नुकसान पातळी ओलांडल्यास जवळच्या कृषी विज्ञान केंद्रातील (KVK) तज्ज्ञांचा सल्ला घ्या",
+        "कृषी विद्यापीठाने शिफारस केलेले कॉपर ऑक्सिक्लोराईड किंवा मँकोझेब लेबल निर्देशांनुसार वापरा",
+        "औषध फवारताना मास्क, हातमोजे वापरा आणि लेबलवर दिलेला काढणीपूर्व प्रतीक्षा कालावधी (PHI) पाळा"
+      ],
+      "prevention": [
+        "टोमॅटोनंतर वांगी किंवा बटाटा लावू नका; योग्य पीकपालट करा",
+        "रोपांमध्ये योग्य अंतर (६० x ४५ सेंमी) ठेवा जेणेकरून हवा आणि ऊन योग्य मिळेल",
+        "मातीतील बुरशी पानांवर उडू नये म्हणून आच्छादन (मल्चिंग) करा",
+        "प्रमाणित आणि रोगप्रतिकारक जातींच्या रोपांची निवड करा"
+      ],
+      "warning": "केवळ एआय अंदाज: हे विश्लेषण छायाचित्रातील लक्षणांवर आधारित असून प्रयोगशाळा चाचणीचा पर्याय नाही. कोणताही मोठा रासायनिक उपाय करण्यापूर्वी स्थानिक कृषी सहाय्यक किंवा केव्हीके शास्त्रज्ञांचा सल्ला घ्या.",
+      "language": "mr",
+      "createdAt": "2026-09-30T15:34:49.049Z"
+    },
+    {
+      "id": "28a92cf7-b022-45db-8d7f-8d351e4e8149",
+      "userId": "d0a8258a-98cd-4bd6-ade5-83a4daecb580",
+      "imageUrl": "/uploads/crop-1790782569479-7572dd18.jpeg",
+      "cropIdentified": "टोमॅटो / बटाटा",
+      "possibleIssue": "करपा / अर्ली ब्लाइट",
+      "confidence": 88,
+      "symptoms": [
+        "खालच्या जुन्या पानांवर काळे-तपकिरी गोलाकार चक्राकार डाग (टार्गेट बोर्डसारखे)",
+        "डागांभोवती पिवळसर कडा",
+        "झाडाची खालची पाने पिवळी पडून गळणे",
+        "खोडावर काळपट चट्टे पडणे"
+      ],
+      "severity": "medium",
+      "organicSolutions": [
+        "रोगट झालेली खालची पाने खुडून शेताबाहेर नष्ट करा, ज्यामुळे हवा खेळती राहील",
+        "प्रमाणित कडुनिंब तेल (३-५ मिली प्रति लिटर पाणी) सौम्य साबणासह फवारा",
+        "५% आंबट ताकाचे द्रावण सकाळी पानांवर फवारा",
+        "पानांवर पाणी पडू देऊ नका; ठिबक सिंचनाचा वापर करा जेणेकरून ओलावा साचणार नाही",
+        "दर १२-१४ दिवसांनी जिवामृत किंवा दशपर्णी अर्काचा फवारा देऊन रोगप्रतिकारशक्ती वाढवा"
+      ],
+      "biologicalSolutions": [
+        "ट्रायकोडर्मा व्हिरीडी किंवा ट्रायकोडर्मा हरझियानम (५ ग्रॅम प्रति लिटर पाणी) पानांवर फवारा",
+        "सुडोमोनास फ्लोरोसन्स (१० ग्रॅम प्रति लिटर) जमिनीतून व पानांवर द्यावे"
+      ],
+      "additionalTreatment": [
+        "प्रादुर्भाव आर्थिक नुकसान पातळी ओलांडल्यास जवळच्या कृषी विज्ञान केंद्रातील (KVK) तज्ज्ञांचा सल्ला घ्या",
+        "कृषी विद्यापीठाने शिफारस केलेले कॉपर ऑक्सिक्लोराईड किंवा मँकोझेब लेबल निर्देशांनुसार वापरा",
+        "औषध फवारताना मास्क, हातमोजे वापरा आणि लेबलवर दिलेला काढणीपूर्व प्रतीक्षा कालावधी (PHI) पाळा"
+      ],
+      "prevention": [
+        "टोमॅटोनंतर वांगी किंवा बटाटा लावू नका; योग्य पीकपालट करा",
+        "रोपांमध्ये योग्य अंतर (६० x ४५ सेंमी) ठेवा जेणेकरून हवा आणि ऊन योग्य मिळेल",
+        "मातीतील बुरशी पानांवर उडू नये म्हणून आच्छादन (मल्चिंग) करा",
+        "प्रमाणित आणि रोगप्रतिकारक जातींच्या रोपांची निवड करा"
+      ],
+      "warning": "केवळ एआय अंदाज: हे विश्लेषण छायाचित्रातील लक्षणांवर आधारित असून प्रयोगशाळा चाचणीचा पर्याय नाही. कोणताही मोठा रासायनिक उपाय करण्यापूर्वी स्थानिक कृषी सहाय्यक किंवा केव्हीके शास्त्रज्ञांचा सल्ला घ्या.",
+      "language": "mr",
+      "createdAt": "2026-09-30T15:36:09.493Z"
+    },
+    {
+      "id": "668c3f20-7739-47d1-bf23-7218b2726a18",
+      "userId": "d0a8258a-98cd-4bd6-ade5-83a4daecb580",
+      "imageUrl": "/uploads/crop-1790782595663-e562ff0e.png",
+      "cropIdentified": "टोमॅटो / बटाटा",
+      "possibleIssue": "करपा / अर्ली ब्लाइट",
+      "confidence": 88,
+      "symptoms": [
+        "खालच्या जुन्या पानांवर काळे-तपकिरी गोलाकार चक्राकार डाग (टार्गेट बोर्डसारखे)",
+        "डागांभोवती पिवळसर कडा",
+        "झाडाची खालची पाने पिवळी पडून गळणे",
+        "खोडावर काळपट चट्टे पडणे"
+      ],
+      "severity": "medium",
+      "organicSolutions": [
+        "रोगट झालेली खालची पाने खुडून शेताबाहेर नष्ट करा, ज्यामुळे हवा खेळती राहील",
+        "प्रमाणित कडुनिंब तेल (३-५ मिली प्रति लिटर पाणी) सौम्य साबणासह फवारा",
+        "५% आंबट ताकाचे द्रावण सकाळी पानांवर फवारा",
+        "पानांवर पाणी पडू देऊ नका; ठिबक सिंचनाचा वापर करा जेणेकरून ओलावा साचणार नाही",
+        "दर १२-१४ दिवसांनी जिवामृत किंवा दशपर्णी अर्काचा फवारा देऊन रोगप्रतिकारशक्ती वाढवा"
+      ],
+      "biologicalSolutions": [
+        "ट्रायकोडर्मा व्हिरीडी किंवा ट्रायकोडर्मा हरझियानम (५ ग्रॅम प्रति लिटर पाणी) पानांवर फवारा",
+        "सुडोमोनास फ्लोरोसन्स (१० ग्रॅम प्रति लिटर) जमिनीतून व पानांवर द्यावे"
+      ],
+      "additionalTreatment": [
+        "प्रादुर्भाव आर्थिक नुकसान पातळी ओलांडल्यास जवळच्या कृषी विज्ञान केंद्रातील (KVK) तज्ज्ञांचा सल्ला घ्या",
+        "कृषी विद्यापीठाने शिफारस केलेले कॉपर ऑक्सिक्लोराईड किंवा मँकोझेब लेबल निर्देशांनुसार वापरा",
+        "औषध फवारताना मास्क, हातमोजे वापरा आणि लेबलवर दिलेला काढणीपूर्व प्रतीक्षा कालावधी (PHI) पाळा"
+      ],
+      "prevention": [
+        "टोमॅटोनंतर वांगी किंवा बटाटा लावू नका; योग्य पीकपालट करा",
+        "रोपांमध्ये योग्य अंतर (६० x ४५ सेंमी) ठेवा जेणेकरून हवा आणि ऊन योग्य मिळेल",
+        "मातीतील बुरशी पानांवर उडू नये म्हणून आच्छादन (मल्चिंग) करा",
+        "प्रमाणित आणि रोगप्रतिकारक जातींच्या रोपांची निवड करा"
+      ],
+      "warning": "केवळ एआय अंदाज: हे विश्लेषण छायाचित्रातील लक्षणांवर आधारित असून प्रयोगशाळा चाचणीचा पर्याय नाही. कोणताही मोठा रासायनिक उपाय करण्यापूर्वी स्थानिक कृषी सहाय्यक किंवा केव्हीके शास्त्रज्ञांचा सल्ला घ्या.",
+      "language": "mr",
+      "createdAt": "2026-09-30T15:36:35.725Z"
+    },
+    {
+      "id": "5b37bb11-9f8b-4f46-8f04-d1c00ef7b87e",
+      "userId": "d0a8258a-98cd-4bd6-ade5-83a4daecb580",
+      "imageUrl": "/uploads/crop-1790782698610-2258e059.jpeg",
+      "cropIdentified": "Tomato / Potato",
+      "possibleIssue": "Early Blight (Alternaria solani)",
+      "confidence": 88,
+      "symptoms": [
+        "Concentric dark brown to black rings (target-board appearance) on older lower leaves",
+        "Yellow halo surrounding necrotic spots",
+        "Premature defoliation starting from the base of the plant",
+        "Sunken dark lesions on stems near soil line"
+      ],
+      "severity": "medium",
+      "organicSolutions": [
+        "Prune and safely dispose of affected lower leaves to improve air circulation",
+        "Spray certified Neem oil (3-5 ml per liter of water) mixed with mild soap",
+        "Apply fermented buttermilk spray (5% sour butter milk in water) in early morning",
+        "Avoid overhead sprinkler irrigation; keep foliage dry by using drip irrigation",
+        "Apply Jeevamrut or Dashparni Ark every 12-14 days to boost soil and plant immunity"
+      ],
+      "biologicalSolutions": [
+        "Foliar spray of Trichoderma harzianum or Trichoderma viride (5g/liter of water)",
+        "Pseudomonas fluorescens (10g/liter) applied to soil and foliage"
+      ],
+      "additionalTreatment": [
+        "If infection crosses economic threshold, consult your local Krishi Vigyan Kendra (KVK) officer",
+        "Registered contact protectants like Copper Oxychloride or Mancozeb as per verified university package of practices",
+        "Always wear protective gloves, mask, and follow statutory waiting period (PHI) mentioned on label"
+      ],
+      "prevention": [
+        "Follow 3-year crop rotation avoiding Solanaceous crops (tomato, potato, eggplant)",
+        "Ensure wide plant spacing (60 x 45 cm) for excellent airflow",
+        "Apply organic mulch to prevent rain splashing soil microbes onto lower leaves",
+        "Use certified disease-resistant hybrid seed varieties"
+      ],
+      "warning": "AI Assessment Only: This evaluation is based on visual patterns and is not a guaranteed laboratory diagnosis. Inspect the field closely and consult an agricultural extension officer (KVK) before taking irreversible actions.",
+      "language": "en",
+      "createdAt": "2026-09-30T15:38:18.614Z"
+    },
+    {
+      "id": "12c5124b-fbd8-4967-84e8-9299bb77d0e3",
+      "userId": "d0a8258a-98cd-4bd6-ade5-83a4daecb580",
+      "imageUrl": "/uploads/crop-1790783481226-a644f2c9.jpeg",
+      "cropIdentified": "Tomato / Potato",
+      "possibleIssue": "Early Blight (Alternaria solani)",
+      "confidence": 88,
+      "symptoms": [
+        "Concentric dark brown to black rings (target-board appearance) on older lower leaves",
+        "Yellow halo surrounding necrotic spots",
+        "Premature defoliation starting from the base of the plant",
+        "Sunken dark lesions on stems near soil line"
+      ],
+      "severity": "medium",
+      "organicSolutions": [
+        "Prune and safely dispose of affected lower leaves to improve air circulation",
+        "Spray certified Neem oil (3-5 ml per liter of water) mixed with mild soap",
+        "Apply fermented buttermilk spray (5% sour butter milk in water) in early morning",
+        "Avoid overhead sprinkler irrigation; keep foliage dry by using drip irrigation",
+        "Apply Jeevamrut or Dashparni Ark every 12-14 days to boost soil and plant immunity"
+      ],
+      "biologicalSolutions": [
+        "Foliar spray of Trichoderma harzianum or Trichoderma viride (5g/liter of water)",
+        "Pseudomonas fluorescens (10g/liter) applied to soil and foliage"
+      ],
+      "additionalTreatment": [
+        "If infection crosses economic threshold, consult your local Krishi Vigyan Kendra (KVK) officer",
+        "Registered contact protectants like Copper Oxychloride or Mancozeb as per verified university package of practices",
+        "Always wear protective gloves, mask, and follow statutory waiting period (PHI) mentioned on label"
+      ],
+      "prevention": [
+        "Follow 3-year crop rotation avoiding Solanaceous crops (tomato, potato, eggplant)",
+        "Ensure wide plant spacing (60 x 45 cm) for excellent airflow",
+        "Apply organic mulch to prevent rain splashing soil microbes onto lower leaves",
+        "Use certified disease-resistant hybrid seed varieties"
+      ],
+      "warning": "AI Assessment Only: This evaluation is based on visual patterns and is not a guaranteed laboratory diagnosis. Inspect the field closely and consult an agricultural extension officer (KVK) before taking irreversible actions.",
+      "language": "en",
+      "createdAt": "2026-09-30T15:51:21.237Z"
+    },
+    {
+      "id": "877b7121-c961-4a3d-80ae-e362bee1a9ff",
+      "userId": "d0a8258a-98cd-4bd6-ade5-83a4daecb580",
+      "imageUrl": "/uploads/crop-1790784430023-f3b30b7b.jpeg",
+      "cropIdentified": "टोमॅटो / बटाटा",
+      "possibleIssue": "करपा / अर्ली ब्लाइट",
+      "confidence": 88,
+      "symptoms": [
+        "खालच्या जुन्या पानांवर काळे-तपकिरी गोलाकार चक्राकार डाग (टार्गेट बोर्डसारखे)",
+        "डागांभोवती पिवळसर कडा",
+        "झाडाची खालची पाने पिवळी पडून गळणे",
+        "खोडावर काळपट चट्टे पडणे"
+      ],
+      "severity": "medium",
+      "organicSolutions": [
+        "रोगट झालेली खालची पाने खुडून शेताबाहेर नष्ट करा, ज्यामुळे हवा खेळती राहील",
+        "प्रमाणित कडुनिंब तेल (३-५ मिली प्रति लिटर पाणी) सौम्य साबणासह फवारा",
+        "५% आंबट ताकाचे द्रावण सकाळी पानांवर फवारा",
+        "पानांवर पाणी पडू देऊ नका; ठिबक सिंचनाचा वापर करा जेणेकरून ओलावा साचणार नाही",
+        "दर १२-१४ दिवसांनी जिवामृत किंवा दशपर्णी अर्काचा फवारा देऊन रोगप्रतिकारशक्ती वाढवा"
+      ],
+      "biologicalSolutions": [
+        "ट्रायकोडर्मा व्हिरीडी किंवा ट्रायकोडर्मा हरझियानम (५ ग्रॅम प्रति लिटर पाणी) पानांवर फवारा",
+        "सुडोमोनास फ्लोरोसन्स (१० ग्रॅम प्रति लिटर) जमिनीतून व पानांवर द्यावे"
+      ],
+      "additionalTreatment": [
+        "प्रादुर्भाव आर्थिक नुकसान पातळी ओलांडल्यास जवळच्या कृषी विज्ञान केंद्रातील (KVK) तज्ज्ञांचा सल्ला घ्या",
+        "कृषी विद्यापीठाने शिफारस केलेले कॉपर ऑक्सिक्लोराईड किंवा मँकोझेब लेबल निर्देशांनुसार वापरा",
+        "औषध फवारताना मास्क, हातमोजे वापरा आणि लेबलवर दिलेला काढणीपूर्व प्रतीक्षा कालावधी (PHI) पाळा"
+      ],
+      "prevention": [
+        "टोमॅटोनंतर वांगी किंवा बटाटा लावू नका; योग्य पीकपालट करा",
+        "रोपांमध्ये योग्य अंतर (६० x ४५ सेंमी) ठेवा जेणेकरून हवा आणि ऊन योग्य मिळेल",
+        "मातीतील बुरशी पानांवर उडू नये म्हणून आच्छादन (मल्चिंग) करा",
+        "प्रमाणित आणि रोगप्रतिकारक जातींच्या रोपांची निवड करा"
+      ],
+      "warning": "केवळ एआय अंदाज: हे विश्लेषण छायाचित्रातील लक्षणांवर आधारित असून प्रयोगशाळा चाचणीचा पर्याय नाही. कोणताही मोठा रासायनिक उपाय करण्यापूर्वी स्थानिक कृषी सहाय्यक किंवा केव्हीके शास्त्रज्ञांचा सल्ला घ्या.",
+      "language": "mr",
+      "createdAt": "2026-09-30T16:07:10.036Z"
+    },
+    {
+      "id": "5d332a49-09b4-4696-9bd5-efbbe7692c90",
+      "userId": "d0a8258a-98cd-4bd6-ade5-83a4daecb580",
+      "imageUrl": "/uploads/crop-1790784460473-d92a5dcd.png",
+      "cropIdentified": "Tomato / Potato",
+      "possibleIssue": "Early Blight (Alternaria solani)",
+      "confidence": 88,
+      "symptoms": [
+        "Concentric dark brown to black rings (target-board appearance) on older lower leaves",
+        "Yellow halo surrounding necrotic spots",
+        "Premature defoliation starting from the base of the plant",
+        "Sunken dark lesions on stems near soil line"
+      ],
+      "severity": "medium",
+      "organicSolutions": [
+        "Prune and safely dispose of affected lower leaves to improve air circulation",
+        "Spray certified Neem oil (3-5 ml per liter of water) mixed with mild soap",
+        "Apply fermented buttermilk spray (5% sour butter milk in water) in early morning",
+        "Avoid overhead sprinkler irrigation; keep foliage dry by using drip irrigation",
+        "Apply Jeevamrut or Dashparni Ark every 12-14 days to boost soil and plant immunity"
+      ],
+      "biologicalSolutions": [
+        "Foliar spray of Trichoderma harzianum or Trichoderma viride (5g/liter of water)",
+        "Pseudomonas fluorescens (10g/liter) applied to soil and foliage"
+      ],
+      "additionalTreatment": [
+        "If infection crosses economic threshold, consult your local Krishi Vigyan Kendra (KVK) officer",
+        "Registered contact protectants like Copper Oxychloride or Mancozeb as per verified university package of practices",
+        "Always wear protective gloves, mask, and follow statutory waiting period (PHI) mentioned on label"
+      ],
+      "prevention": [
+        "Follow 3-year crop rotation avoiding Solanaceous crops (tomato, potato, eggplant)",
+        "Ensure wide plant spacing (60 x 45 cm) for excellent airflow",
+        "Apply organic mulch to prevent rain splashing soil microbes onto lower leaves",
+        "Use certified disease-resistant hybrid seed varieties"
+      ],
+      "warning": "AI Assessment Only: This evaluation is based on visual patterns and is not a guaranteed laboratory diagnosis. Inspect the field closely and consult an agricultural extension officer (KVK) before taking irreversible actions.",
+      "language": "en",
+      "createdAt": "2026-09-30T16:07:40.529Z"
+    }
+  ],
+  "alerts": [],
+  "chatMessages": []
+}
