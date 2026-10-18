@@ -1,6 +1,10 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { config } from '../config/index.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export interface User {
   id: string;
@@ -108,7 +112,9 @@ class Database {
         path.resolve(process.cwd(), 'backend/data/krishimitra.json'),
         path.resolve(process.cwd(), 'data/krishimitra.json'),
         path.resolve(__dirname, '../../data/krishimitra.json'),
-        path.resolve(__dirname, '../../../data/krishimitra.json')
+        path.resolve(__dirname, '../../../data/krishimitra.json'),
+        path.resolve(__dirname, '../data/krishimitra.json'),
+        path.resolve(__dirname, './data/krishimitra.json')
       ];
       for (const seed of candidateSeeds) {
         if (fs.existsSync(seed)) {
@@ -147,7 +153,9 @@ class Database {
       path.resolve(process.cwd(), 'backend/data/krishimitra.json'),
       path.resolve(process.cwd(), 'data/krishimitra.json'),
       path.resolve(__dirname, '../../data/krishimitra.json'),
-      path.resolve(__dirname, '../../../data/krishimitra.json')
+      path.resolve(__dirname, '../../../data/krishimitra.json'),
+      path.resolve(__dirname, '../data/krishimitra.json'),
+      path.resolve(__dirname, './data/krishimitra.json')
     ];
     for (const seed of candidateSeeds) {
       try {

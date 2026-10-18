@@ -9,7 +9,7 @@
     "backend": {
       "root": "backend/",
       "framework": "express",
-      "entrypoint": "src/app.ts",
+      "entrypoint": "app.mjs",
       "buildCommand": "npm run build"
     }
   },
