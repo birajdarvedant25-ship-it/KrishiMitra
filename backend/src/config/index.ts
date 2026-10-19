@@ -44,6 +44,16 @@ const defaultUploadDir = isVercel
   ? path.join('/tmp', 'uploads')
   : path.resolve(__dirname, '../../uploads');
 
+let resolvedDbPath = process.env.DATABASE_PATH || defaultDbPath;
+if (isVercel && !resolvedDbPath.startsWith('/tmp')) {
+  resolvedDbPath = path.join('/tmp', path.basename(resolvedDbPath).replace(/\.db$/, '.json'));
+}
+
+let resolvedUploadDir = process.env.UPLOAD_DIR || defaultUploadDir;
+if (isVercel && !resolvedUploadDir.startsWith('/tmp')) {
+  resolvedUploadDir = path.join('/tmp', 'uploads');
+}
+
 export const config = {
   host: process.env.HOST || '0.0.0.0',
   port: parseInt(process.env.PORT || '5000', 10),
@@ -54,6 +64,7 @@ export const config = {
   geminiModel: process.env.GEMINI_MODEL?.trim() || '',
   openaiApiKey: openaiKey,
   weatherApiKey: process.env.WEATHER_API_KEY?.trim() || '',
-  databasePath: process.env.DATABASE_PATH || defaultDbPath,
-  uploadDir: process.env.UPLOAD_DIR || defaultUploadDir
+  databasePath: resolvedDbPath,
+  uploadDir: resolvedUploadDir
 };
+

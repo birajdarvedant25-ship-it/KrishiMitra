@@ -24,11 +24,11 @@ export class GeminiService {
     const configuredModel = config.geminiModel ? [config.geminiModel] : [];
     const modelsToTry = [
       ...configuredModel,
+      'gemini-3.5-flash',
+      'gemini-3.8-flash',
       'gemini-2.5-flash',
       'gemini-2.0-flash',
       'gemini-1.5-flash',
-      'gemini-3.5-flash',
-      'gemini-3.8-flash',
       'gemini-3.5-flash-lite',
       'gemini-3.1-flash-lite',
       'gemini-flash-lite-latest'
@@ -147,11 +147,11 @@ Return ONLY strict valid JSON matching this schema exactly (no markdown formatti
     const configuredModel = config.geminiModel ? [config.geminiModel] : [];
     const modelsToTry = [
       ...configuredModel,
+      'gemini-3.5-flash',
+      'gemini-3.8-flash',
       'gemini-2.5-flash',
       'gemini-2.0-flash',
       'gemini-1.5-flash',
-      'gemini-3.5-flash',
-      'gemini-3.8-flash',
       'gemini-3.5-flash-lite',
       'gemini-3.1-flash-lite',
       'gemini-flash-lite-latest'

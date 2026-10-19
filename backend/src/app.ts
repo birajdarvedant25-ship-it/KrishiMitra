@@ -91,6 +91,7 @@ app.get('/api/health', sendHealthCheck);
 app.get('/health', sendHealthCheck);
 
 // Mount Routes
+app.use('/uploads', express.static(config.uploadDir));
 app.use('/api/auth', authRouter);
 app.use('/api/profile', profileRouter);
 app.use('/api/crops', cropsRouter);

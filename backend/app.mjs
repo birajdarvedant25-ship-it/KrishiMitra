@@ -31,6 +31,14 @@ var resolvedAiMode = rawAiMode === "mock" ? "mock" : rawAiMode === "production" 
 var isVercel = Boolean(process.env.VERCEL);
 var defaultDbPath = isVercel ? path.join("/tmp", "krishimitra.json") : path.resolve(__dirname, "../../data/krishimitra.json");
 var defaultUploadDir = isVercel ? path.join("/tmp", "uploads") : path.resolve(__dirname, "../../uploads");
+var resolvedDbPath = process.env.DATABASE_PATH || defaultDbPath;
+if (isVercel && !resolvedDbPath.startsWith("/tmp")) {
+  resolvedDbPath = path.join("/tmp", path.basename(resolvedDbPath).replace(/\.db$/, ".json"));
+}
+var resolvedUploadDir = process.env.UPLOAD_DIR || defaultUploadDir;
+if (isVercel && !resolvedUploadDir.startsWith("/tmp")) {
+  resolvedUploadDir = path.join("/tmp", "uploads");
+}
 var config = {
   host: process.env.HOST || "0.0.0.0",
   port: parseInt(process.env.PORT || "5000", 10),
@@ -41,8 +49,8 @@ var config = {
   geminiModel: process.env.GEMINI_MODEL?.trim() || "",
   openaiApiKey: openaiKey,
   weatherApiKey: process.env.WEATHER_API_KEY?.trim() || "",
-  databasePath: process.env.DATABASE_PATH || defaultDbPath,
-  uploadDir: process.env.UPLOAD_DIR || defaultUploadDir
+  databasePath: resolvedDbPath,
+  uploadDir: resolvedUploadDir
 };
 
 // src/routes/auth.ts
@@ -1214,11 +1222,11 @@ var GeminiService = class {
     const configuredModel = config.geminiModel ? [config.geminiModel] : [];
     const modelsToTry = [
       ...configuredModel,
+      "gemini-3.5-flash",
+      "gemini-3.8-flash",
       "gemini-2.5-flash",
       "gemini-2.0-flash",
       "gemini-1.5-flash",
-      "gemini-3.5-flash",
-      "gemini-3.8-flash",
       "gemini-3.5-flash-lite",
       "gemini-3.1-flash-lite",
       "gemini-flash-lite-latest"
@@ -1317,11 +1325,11 @@ Return ONLY strict valid JSON matching this schema exactly (no markdown formatti
     const configuredModel = config.geminiModel ? [config.geminiModel] : [];
     const modelsToTry = [
       ...configuredModel,
+      "gemini-3.5-flash",
+      "gemini-3.8-flash",
       "gemini-2.5-flash",
       "gemini-2.0-flash",
       "gemini-1.5-flash",
-      "gemini-3.5-flash",
-      "gemini-3.8-flash",
       "gemini-3.5-flash-lite",
       "gemini-3.1-flash-lite",
       "gemini-flash-lite-latest"
@@ -2597,6 +2605,7 @@ app.get("/api", sendApiInfo);
 app.get("/api/", sendApiInfo);
 app.get("/api/health", sendHealthCheck);
 app.get("/health", sendHealthCheck);
+app.use("/uploads", express.static(config.uploadDir));
 app.use("/api/auth", authRouter);
 app.use("/api/profile", profileRouter);
 app.use("/api/crops", cropsRouter);
