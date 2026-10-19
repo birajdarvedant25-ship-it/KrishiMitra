@@ -8,9 +8,19 @@ import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
 var getDirname = () => {
-  const g = globalThis;
-  if (typeof g.__dirname === "string") return g.__dirname;
-  return path.dirname(fileURLToPath(import.meta.url));
+  try {
+    if (typeof __dirname === "string") return __dirname;
+  } catch {
+  }
+  try {
+    const getMetaUrl = new Function('return typeof import.meta !== "undefined" && import.meta ? import.meta.url : null');
+    const metaUrl = getMetaUrl();
+    if (metaUrl) {
+      return path.dirname(fileURLToPath(metaUrl));
+    }
+  } catch {
+  }
+  return process.cwd();
 };
 var __dirname = getDirname();
 var possibleEnvPaths = [
@@ -63,9 +73,19 @@ import fs2 from "fs";
 import path2 from "path";
 import { fileURLToPath as fileURLToPath2 } from "url";
 var getDirname2 = () => {
-  const g = globalThis;
-  if (typeof g.__dirname === "string") return g.__dirname;
-  return path2.dirname(fileURLToPath2(import.meta.url));
+  try {
+    if (typeof __dirname2 === "string") return __dirname2;
+  } catch {
+  }
+  try {
+    const getMetaUrl = new Function('return typeof import.meta !== "undefined" && import.meta ? import.meta.url : null');
+    const metaUrl = getMetaUrl();
+    if (metaUrl) {
+      return path2.dirname(fileURLToPath2(metaUrl));
+    }
+  } catch {
+  }
+  return process.cwd();
 };
 var __dirname2 = getDirname2();
 var Database = class {
@@ -1222,9 +1242,9 @@ var GeminiService = class {
     const configuredModel = config.geminiModel ? [config.geminiModel] : [];
     const modelsToTry = [
       ...configuredModel,
-      "gemini-3.5-flash",
       "gemini-3.8-flash",
       "gemini-2.5-flash",
+      "gemini-3.5-flash",
       "gemini-2.0-flash",
       "gemini-1.5-flash",
       "gemini-3.5-flash-lite",
@@ -1325,9 +1345,9 @@ Return ONLY strict valid JSON matching this schema exactly (no markdown formatti
     const configuredModel = config.geminiModel ? [config.geminiModel] : [];
     const modelsToTry = [
       ...configuredModel,
-      "gemini-3.5-flash",
       "gemini-3.8-flash",
       "gemini-2.5-flash",
+      "gemini-3.5-flash",
       "gemini-2.0-flash",
       "gemini-1.5-flash",
       "gemini-3.5-flash-lite",

@@ -4,12 +4,16 @@
   "description": "Backend API for KrishiMitra AI Farming Assistant",
   "main": "app.mjs",
   "exports": {
-    ".": "./app.mjs"
+    ".": {
+      "import": "./app.mjs",
+      "require": "./app.js",
+      "default": "./app.mjs"
+    }
   },
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc && esbuild src/app.ts --bundle --platform=node --format=esm --packages=external --outfile=app.mjs && esbuild src/app.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/app.mjs",
+    "build": "tsc && esbuild src/app.ts --bundle --platform=node --format=esm --packages=external --outfile=app.mjs && esbuild src/app.ts --bundle --platform=node --format=cjs --packages=external --footer:js=\"module.exports = app_default; module.exports.default = app_default; module.exports.app = app_default;\" --outfile=app.js && esbuild src/app.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/app.mjs && esbuild src/app.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/app.js",
     "vercel-build": "npm run build",
     "start": "node dist/server.js",
     "test": "node --test tests/*.test.js"

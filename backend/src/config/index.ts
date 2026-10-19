@@ -4,9 +4,17 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 const getDirname = (): string => {
-  const g = globalThis as any;
-  if (typeof g.__dirname === 'string') return g.__dirname;
-  return path.dirname(fileURLToPath(import.meta.url));
+  try {
+    if (typeof __dirname === 'string') return __dirname;
+  } catch {}
+  try {
+    const getMetaUrl = new Function('return typeof import.meta !== "undefined" && import.meta ? import.meta.url : null');
+    const metaUrl = getMetaUrl();
+    if (metaUrl) {
+      return path.dirname(fileURLToPath(metaUrl));
+    }
+  } catch {}
+  return process.cwd();
 };
 const __dirname: string = getDirname();
 
