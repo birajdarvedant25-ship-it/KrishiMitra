@@ -2,7 +2,10 @@
   "name": "krishimitra-backend",
   "version": "1.0.0",
   "description": "Backend API for KrishiMitra AI Farming Assistant",
-  "main": "dist/server.js",
+  "main": "app.mjs",
+  "exports": {
+    ".": "./app.mjs"
+  },
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",

@@ -3,8 +3,12 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const getDirname = (): string => {
+  const g = globalThis as any;
+  if (typeof g.__dirname === 'string') return g.__dirname;
+  return path.dirname(fileURLToPath(import.meta.url));
+};
+const __dirname: string = getDirname();
 
 // Multi-path loader for robust environment variable discovery
 const possibleEnvPaths = [

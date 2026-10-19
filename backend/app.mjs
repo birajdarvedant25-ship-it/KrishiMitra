@@ -7,8 +7,12 @@ import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
-var __filename = fileURLToPath(import.meta.url);
-var __dirname = path.dirname(__filename);
+var getDirname = () => {
+  const g = globalThis;
+  if (typeof g.__dirname === "string") return g.__dirname;
+  return path.dirname(fileURLToPath(import.meta.url));
+};
+var __dirname = getDirname();
 var possibleEnvPaths = [
   path.resolve(process.cwd(), ".env"),
   path.resolve(process.cwd(), "backend/.env"),
@@ -50,8 +54,12 @@ import { v4 as uuidv4 } from "uuid";
 import fs2 from "fs";
 import path2 from "path";
 import { fileURLToPath as fileURLToPath2 } from "url";
-var __filename2 = fileURLToPath2(import.meta.url);
-var __dirname2 = path2.dirname(__filename2);
+var getDirname2 = () => {
+  const g = globalThis;
+  if (typeof g.__dirname === "string") return g.__dirname;
+  return path2.dirname(fileURLToPath2(import.meta.url));
+};
+var __dirname2 = getDirname2();
 var Database = class {
   dbPath;
   data;

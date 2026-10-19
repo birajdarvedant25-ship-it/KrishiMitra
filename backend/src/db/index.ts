@@ -3,8 +3,12 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { config } from '../config/index.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const getDirname = (): string => {
+  const g = globalThis as any;
+  if (typeof g.__dirname === 'string') return g.__dirname;
+  return path.dirname(fileURLToPath(import.meta.url));
+};
+const __dirname: string = getDirname();
 
 export interface User {
   id: string;
