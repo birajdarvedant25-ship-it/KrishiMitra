@@ -1,14 +1,36 @@
 // Universal CommonJS / ESM bridge for Vercel Serverless Function & Express runtime
-let appPromise;
+let appInstance;
+
+try {
+  const cjs = require('./app.cjs');
+  appInstance = cjs.default || cjs.app || cjs;
+} catch (err) {
+  // If require fails (e.g. running under ESM loader), fall back to async handler
+}
+
+let asyncAppPromise = null;
 
 const handler = async (req, res) => {
-  if (!appPromise) {
-    appPromise = import('./app.mjs').then(m => m.default || m.app || m);
+  try {
+    if (!appInstance) {
+      if (!asyncAppPromise) {
+        asyncAppPromise = import('./app.mjs').then(m => m.default || m.app || m);
+      }
+      appInstance = await asyncAppPromise;
+    }
+    return appInstance(req, res);
+  } catch (err) {
+    console.error('[CRITICAL] Vercel function invocation error:', err);
+    res.statusCode = 500;
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({
+      status: 'error',
+      error: 'KrishiMitra Backend Function Invocation Failed',
+      message: err.message
+    }));
   }
-  const app = await appPromise;
-  return app(req, res);
 };
 
-module.exports = handler;
-module.exports.default = handler;
-module.exports.app = handler;
+module.exports = appInstance || handler;
+module.exports.default = appInstance || handler;
+module.exports.app = appInstance || handler;

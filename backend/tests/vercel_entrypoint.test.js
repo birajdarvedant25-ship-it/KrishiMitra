@@ -10,15 +10,21 @@ const __dirname = path.dirname(__filename);
 const backendRoot = path.resolve(__dirname, '..');
 
 test('Vercel Backend Service Entrypoint Integration Suite (app.js & app.mjs)', async (t) => {
-  // Verify both build artifacts exist
+  // Verify all build artifacts exist
   const appJsPath = path.resolve(backendRoot, 'app.js');
   const appMjsPath = path.resolve(backendRoot, 'app.mjs');
+  const appCjsPath = path.resolve(backendRoot, 'app.cjs');
   assert.ok(fs.existsSync(appJsPath), 'backend/app.js must exist for Vercel Express preset');
   assert.ok(fs.existsSync(appMjsPath), 'backend/app.mjs must exist for ESM runtime');
+  assert.ok(fs.existsSync(appCjsPath), 'backend/app.cjs must exist for CommonJS runtime');
 
   // Import backend/app.mjs
   const { default: appMjs } = await import('../app.mjs');
   assert.equal(typeof appMjs, 'function', 'backend/app.mjs must export an Express application');
+
+  // Import backend/app.cjs
+  const { default: appCjs } = await import('../app.cjs');
+  assert.equal(typeof (appCjs.default || appCjs.app || appCjs), 'function', 'backend/app.cjs must export an Express application');
 
   // Start HTTP server using the Express app
   const server = http.createServer((req, res) => {
