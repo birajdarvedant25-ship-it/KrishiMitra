@@ -1,47 +1,12 @@
-"use strict";
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
 // src/app.ts
-var app_exports = {};
-__export(app_exports, {
-  app: () => app,
-  default: () => app_default
-});
-module.exports = __toCommonJS(app_exports);
-var import_express9 = __toESM(require("express"), 1);
-var import_cors = __toESM(require("cors"), 1);
+import express from "express";
+import cors from "cors";
 
 // src/config/index.ts
-var import_dotenv = __toESM(require("dotenv"), 1);
-var import_path = __toESM(require("path"), 1);
-var import_fs = __toESM(require("fs"), 1);
-var import_url = require("url");
+import dotenv from "dotenv";
+import path from "path";
+import fs from "fs";
+import { fileURLToPath } from "url";
 var getDirname = () => {
   try {
     if (typeof __dirname === "string") return __dirname;
@@ -51,7 +16,7 @@ var getDirname = () => {
     const getMetaUrl = new Function('return typeof import.meta !== "undefined" && import.meta ? import.meta.url : null');
     const metaUrl = getMetaUrl();
     if (metaUrl) {
-      return import_path.default.dirname((0, import_url.fileURLToPath)(metaUrl));
+      return path.dirname(fileURLToPath(metaUrl));
     }
   } catch {
   }
@@ -59,14 +24,14 @@ var getDirname = () => {
 };
 var __dirname = getDirname();
 var possibleEnvPaths = [
-  import_path.default.resolve(process.cwd(), ".env"),
-  import_path.default.resolve(process.cwd(), "backend/.env"),
-  import_path.default.resolve(__dirname, "../../.env"),
-  import_path.default.resolve(__dirname, "../../../.env")
+  path.resolve(process.cwd(), ".env"),
+  path.resolve(process.cwd(), "backend/.env"),
+  path.resolve(__dirname, "../../.env"),
+  path.resolve(__dirname, "../../../.env")
 ];
 for (const envPath of possibleEnvPaths) {
-  if (import_fs.default.existsSync(envPath)) {
-    import_dotenv.default.config({ path: envPath });
+  if (fs.existsSync(envPath)) {
+    dotenv.config({ path: envPath });
   }
 }
 var rawAiMode = (process.env.AI_MODE || "").trim().toLowerCase();
@@ -74,15 +39,15 @@ var geminiKey = (process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY)?.trim
 var openaiKey = process.env.OPENAI_API_KEY?.trim() || "";
 var resolvedAiMode = rawAiMode === "mock" ? "mock" : rawAiMode === "production" || rawAiMode === "live" || Boolean(geminiKey || openaiKey) ? "production" : "mock";
 var isVercel = Boolean(process.env.VERCEL);
-var defaultDbPath = isVercel ? import_path.default.join("/tmp", "krishimitra.json") : import_path.default.resolve(__dirname, "../../data/krishimitra.json");
-var defaultUploadDir = isVercel ? import_path.default.join("/tmp", "uploads") : import_path.default.resolve(__dirname, "../../uploads");
+var defaultDbPath = isVercel ? path.join("/tmp", "krishimitra.json") : path.resolve(__dirname, "../../data/krishimitra.json");
+var defaultUploadDir = isVercel ? path.join("/tmp", "uploads") : path.resolve(__dirname, "../../uploads");
 var resolvedDbPath = process.env.DATABASE_PATH || defaultDbPath;
 if (isVercel && !resolvedDbPath.startsWith("/tmp")) {
-  resolvedDbPath = import_path.default.join("/tmp", import_path.default.basename(resolvedDbPath).replace(/\.db$/, ".json"));
+  resolvedDbPath = path.join("/tmp", path.basename(resolvedDbPath).replace(/\.db$/, ".json"));
 }
 var resolvedUploadDir = process.env.UPLOAD_DIR || defaultUploadDir;
 if (isVercel && !resolvedUploadDir.startsWith("/tmp")) {
-  resolvedUploadDir = import_path.default.join("/tmp", "uploads");
+  resolvedUploadDir = path.join("/tmp", "uploads");
 }
 var config = {
   host: process.env.HOST || "0.0.0.0",
@@ -99,14 +64,14 @@ var config = {
 };
 
 // src/routes/auth.ts
-var import_express = require("express");
-var import_bcryptjs = __toESM(require("bcryptjs"), 1);
-var import_uuid = require("uuid");
+import { Router } from "express";
+import bcrypt from "bcryptjs";
+import { v4 as uuidv4 } from "uuid";
 
 // src/db/index.ts
-var import_fs2 = __toESM(require("fs"), 1);
-var import_path2 = __toESM(require("path"), 1);
-var import_url2 = require("url");
+import fs2 from "fs";
+import path2 from "path";
+import { fileURLToPath as fileURLToPath2 } from "url";
 var getDirname2 = () => {
   try {
     if (typeof __dirname2 === "string") return __dirname2;
@@ -116,7 +81,7 @@ var getDirname2 = () => {
     const getMetaUrl = new Function('return typeof import.meta !== "undefined" && import.meta ? import.meta.url : null');
     const metaUrl = getMetaUrl();
     if (metaUrl) {
-      return import_path2.default.dirname((0, import_url2.fileURLToPath)(metaUrl));
+      return path2.dirname(fileURLToPath2(metaUrl));
     }
   } catch {
   }
@@ -128,27 +93,27 @@ var Database = class {
   data;
   constructor() {
     this.dbPath = config.databasePath;
-    const dir = import_path2.default.dirname(this.dbPath);
+    const dir = path2.dirname(this.dbPath);
     try {
-      if (!import_fs2.default.existsSync(dir)) {
-        import_fs2.default.mkdirSync(dir, { recursive: true });
+      if (!fs2.existsSync(dir)) {
+        fs2.mkdirSync(dir, { recursive: true });
       }
     } catch (err) {
       console.warn("[DB] Could not ensure directory exists:", err);
     }
-    if (!import_fs2.default.existsSync(this.dbPath)) {
+    if (!fs2.existsSync(this.dbPath)) {
       const candidateSeeds = [
-        import_path2.default.resolve(process.cwd(), "backend/data/krishimitra.json"),
-        import_path2.default.resolve(process.cwd(), "data/krishimitra.json"),
-        import_path2.default.resolve(__dirname2, "../../data/krishimitra.json"),
-        import_path2.default.resolve(__dirname2, "../../../data/krishimitra.json"),
-        import_path2.default.resolve(__dirname2, "../data/krishimitra.json"),
-        import_path2.default.resolve(__dirname2, "./data/krishimitra.json")
+        path2.resolve(process.cwd(), "backend/data/krishimitra.json"),
+        path2.resolve(process.cwd(), "data/krishimitra.json"),
+        path2.resolve(__dirname2, "../../data/krishimitra.json"),
+        path2.resolve(__dirname2, "../../../data/krishimitra.json"),
+        path2.resolve(__dirname2, "../data/krishimitra.json"),
+        path2.resolve(__dirname2, "./data/krishimitra.json")
       ];
       for (const seed of candidateSeeds) {
-        if (import_fs2.default.existsSync(seed)) {
+        if (fs2.existsSync(seed)) {
           try {
-            import_fs2.default.copyFileSync(seed, this.dbPath);
+            fs2.copyFileSync(seed, this.dbPath);
             break;
           } catch {
           }
@@ -159,8 +124,8 @@ var Database = class {
   }
   load() {
     try {
-      if (import_fs2.default.existsSync(this.dbPath)) {
-        const raw = import_fs2.default.readFileSync(this.dbPath, "utf-8");
+      if (fs2.existsSync(this.dbPath)) {
+        const raw = fs2.readFileSync(this.dbPath, "utf-8");
         const parsed = JSON.parse(raw);
         return {
           users: parsed.users || [],
@@ -175,17 +140,17 @@ var Database = class {
       console.error("Error loading database file, checking candidate seeds:", err);
     }
     const candidateSeeds = [
-      import_path2.default.resolve(process.cwd(), "backend/data/krishimitra.json"),
-      import_path2.default.resolve(process.cwd(), "data/krishimitra.json"),
-      import_path2.default.resolve(__dirname2, "../../data/krishimitra.json"),
-      import_path2.default.resolve(__dirname2, "../../../data/krishimitra.json"),
-      import_path2.default.resolve(__dirname2, "../data/krishimitra.json"),
-      import_path2.default.resolve(__dirname2, "./data/krishimitra.json")
+      path2.resolve(process.cwd(), "backend/data/krishimitra.json"),
+      path2.resolve(process.cwd(), "data/krishimitra.json"),
+      path2.resolve(__dirname2, "../../data/krishimitra.json"),
+      path2.resolve(__dirname2, "../../../data/krishimitra.json"),
+      path2.resolve(__dirname2, "../data/krishimitra.json"),
+      path2.resolve(__dirname2, "./data/krishimitra.json")
     ];
     for (const seed of candidateSeeds) {
       try {
-        if (import_fs2.default.existsSync(seed)) {
-          const raw = import_fs2.default.readFileSync(seed, "utf-8");
+        if (fs2.existsSync(seed)) {
+          const raw = fs2.readFileSync(seed, "utf-8");
           const parsed = JSON.parse(raw);
           return {
             users: parsed.users || [],
@@ -210,13 +175,13 @@ var Database = class {
   }
   save() {
     try {
-      const dir = import_path2.default.dirname(this.dbPath);
-      if (!import_fs2.default.existsSync(dir)) {
-        import_fs2.default.mkdirSync(dir, { recursive: true });
+      const dir = path2.dirname(this.dbPath);
+      if (!fs2.existsSync(dir)) {
+        fs2.mkdirSync(dir, { recursive: true });
       }
       const tempPath = `${this.dbPath}.tmp`;
-      import_fs2.default.writeFileSync(tempPath, JSON.stringify(this.data, null, 2), "utf-8");
-      import_fs2.default.renameSync(tempPath, this.dbPath);
+      fs2.writeFileSync(tempPath, JSON.stringify(this.data, null, 2), "utf-8");
+      fs2.renameSync(tempPath, this.dbPath);
     } catch (err) {
       console.warn("[DB] Warning: could not persist database to disk:", err);
     }
@@ -343,9 +308,9 @@ var Database = class {
 var db = new Database();
 
 // src/middleware/auth.ts
-var import_jsonwebtoken = __toESM(require("jsonwebtoken"), 1);
+import jwt from "jsonwebtoken";
 function generateToken(user) {
-  return import_jsonwebtoken.default.sign(
+  return jwt.sign(
     { id: user.id, emailOrPhone: user.emailOrPhone, preferredLanguage: user.preferredLanguage },
     config.jwtSecret,
     { expiresIn: "30d" }
@@ -359,7 +324,7 @@ function requireAuth(req, res, next) {
   }
   const token = authHeader.split(" ")[1];
   try {
-    const decoded = import_jsonwebtoken.default.verify(token, config.jwtSecret);
+    const decoded = jwt.verify(token, config.jwtSecret);
     const user = db.users.find((u) => u.id === decoded.id);
     if (!user) {
       res.status(401).json({ success: false, message: "User not found or session expired." });
@@ -376,7 +341,7 @@ function optionalAuth(req, res, next) {
   if (authHeader && authHeader.startsWith("Bearer ")) {
     const token = authHeader.split(" ")[1];
     try {
-      const decoded = import_jsonwebtoken.default.verify(token, config.jwtSecret);
+      const decoded = jwt.verify(token, config.jwtSecret);
       const user = db.users.find((u) => u.id === decoded.id);
       if (user) {
         req.user = user;
@@ -388,7 +353,7 @@ function optionalAuth(req, res, next) {
 }
 
 // src/routes/auth.ts
-var authRouter = (0, import_express.Router)();
+var authRouter = Router();
 authRouter.post("/register", async (req, res) => {
   try {
     const { name, emailOrPhone, password, preferredLanguage, state, district, village } = req.body;
@@ -402,10 +367,10 @@ authRouter.post("/register", async (req, res) => {
       res.status(409).json({ success: false, message: "An account with this email or phone already exists. Please login." });
       return;
     }
-    const salt = await import_bcryptjs.default.genSalt(10);
-    const passwordHash = await import_bcryptjs.default.hash(password, salt);
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(password, salt);
     const newUser = {
-      id: (0, import_uuid.v4)(),
+      id: uuidv4(),
       name: name.trim(),
       emailOrPhone: cleanContact,
       passwordHash,
@@ -444,7 +409,7 @@ authRouter.post("/login", async (req, res) => {
       res.status(401).json({ success: false, message: "Invalid credentials. Please verify your phone/email and password." });
       return;
     }
-    const isMatch = await import_bcryptjs.default.compare(password, user.passwordHash);
+    const isMatch = await bcrypt.compare(password, user.passwordHash);
     if (!isMatch) {
       res.status(401).json({ success: false, message: "Invalid credentials. Please verify your phone/email and password." });
       return;
@@ -495,7 +460,7 @@ authRouter.post("/onboarding", requireAuth, (req, res) => {
       crops.forEach((cropItem) => {
         if (cropItem && cropItem.name) {
           db.crops.create({
-            id: (0, import_uuid.v4)(),
+            id: uuidv4(),
             userId: user.id,
             cropName: cropItem.name,
             variety: cropItem.variety || "",
@@ -539,8 +504,8 @@ authRouter.post("/reset-password", async (req, res) => {
       res.status(404).json({ success: false, message: "User with this email or phone was not found." });
       return;
     }
-    const salt = await import_bcryptjs.default.genSalt(10);
-    const passwordHash = await import_bcryptjs.default.hash(newPassword, salt);
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(newPassword, salt);
     db.users.update(user.id, { passwordHash });
     res.json({ success: true, message: "Password has been reset successfully. Please log in with your new password." });
   } catch (err) {
@@ -550,8 +515,8 @@ authRouter.post("/reset-password", async (req, res) => {
 });
 
 // src/routes/profile.ts
-var import_express2 = require("express");
-var profileRouter = (0, import_express2.Router)();
+import { Router as Router2 } from "express";
+var profileRouter = Router2();
 profileRouter.get("/", requireAuth, (req, res) => {
   const user = req.user;
   const { passwordHash: _, ...safeUser } = user;
@@ -610,8 +575,8 @@ profileRouter.post("/language", requireAuth, (req, res) => {
 });
 
 // src/routes/crops.ts
-var import_express3 = require("express");
-var import_uuid2 = require("uuid");
+import { Router as Router3 } from "express";
+import { v4 as uuidv42 } from "uuid";
 
 // src/services/agriculture/knowledgeBase.ts
 var CROP_PROFILES = {
@@ -1142,7 +1107,7 @@ var AgriculturalKnowledgeService = class {
 };
 
 // src/routes/crops.ts
-var cropsRouter = (0, import_express3.Router)();
+var cropsRouter = Router3();
 cropsRouter.get("/", optionalAuth, (req, res) => {
   const userId = req.user?.id;
   let userCrops = [];
@@ -1194,7 +1159,7 @@ cropsRouter.post("/", requireAuth, (req, res) => {
       return;
     }
     const newCrop = {
-      id: (0, import_uuid2.v4)(),
+      id: uuidv42(),
       userId: req.user.id,
       cropName: cropName.trim(),
       variety: variety?.trim() || "",
@@ -1256,18 +1221,18 @@ cropsRouter.get("/meta/supported", (_req, res) => {
 });
 
 // src/routes/disease.ts
-var import_express4 = require("express");
-var import_multer = __toESM(require("multer"), 1);
-var import_path3 = __toESM(require("path"), 1);
-var import_fs3 = __toESM(require("fs"), 1);
-var import_uuid3 = require("uuid");
+import { Router as Router4 } from "express";
+import multer from "multer";
+import path3 from "path";
+import fs3 from "fs";
+import { v4 as uuidv43 } from "uuid";
 
 // src/services/ai/geminiService.ts
-var import_generative_ai = require("@google/generative-ai");
+import { GoogleGenerativeAI } from "@google/generative-ai";
 var GeminiService = class {
   static getClient() {
     if (!config.geminiApiKey) return null;
-    return new import_generative_ai.GoogleGenerativeAI(config.geminiApiKey);
+    return new GoogleGenerativeAI(config.geminiApiKey);
   }
   static async analyzeCropImage(imageBuffer, mimeType, cropHint, lang = "en", context) {
     const ai = this.getClient();
@@ -1435,11 +1400,11 @@ Farmer Query: ${message}`);
 };
 
 // src/services/ai/openAiService.ts
-var import_openai = __toESM(require("openai"), 1);
+import OpenAI from "openai";
 var OpenAiService = class {
   static getClient() {
     if (!config.openaiApiKey) return null;
-    return new import_openai.default({ apiKey: config.openaiApiKey });
+    return new OpenAI({ apiKey: config.openaiApiKey });
   }
   static async analyzeCropImage(imageBuffer, mimeType, cropHint, lang = "en") {
     const openai = this.getClient();
@@ -2121,30 +2086,30 @@ var WeatherService = class {
 };
 
 // src/routes/disease.ts
-var diseaseRouter = (0, import_express4.Router)();
+var diseaseRouter = Router4();
 try {
-  if (!import_fs3.default.existsSync(config.uploadDir)) {
-    import_fs3.default.mkdirSync(config.uploadDir, { recursive: true });
+  if (!fs3.existsSync(config.uploadDir)) {
+    fs3.mkdirSync(config.uploadDir, { recursive: true });
   }
 } catch (err) {
   console.warn("[UPLOAD] Upload directory notice:", err);
 }
-var storage = import_multer.default.diskStorage({
+var storage = multer.diskStorage({
   destination: (_req, _file, cb) => {
     try {
-      if (!import_fs3.default.existsSync(config.uploadDir)) {
-        import_fs3.default.mkdirSync(config.uploadDir, { recursive: true });
+      if (!fs3.existsSync(config.uploadDir)) {
+        fs3.mkdirSync(config.uploadDir, { recursive: true });
       }
     } catch {
     }
     cb(null, config.uploadDir);
   },
   filename: (_req, file, cb) => {
-    const ext = import_path3.default.extname(file.originalname) || ".jpg";
-    cb(null, `crop-${Date.now()}-${(0, import_uuid3.v4)().substring(0, 8)}${ext}`);
+    const ext = path3.extname(file.originalname) || ".jpg";
+    cb(null, `crop-${Date.now()}-${uuidv43().substring(0, 8)}${ext}`);
   }
 });
-var upload = (0, import_multer.default)({
+var upload = multer({
   storage,
   limits: { fileSize: 10 * 1024 * 1024 },
   // 10MB max
@@ -2170,7 +2135,7 @@ diseaseRouter.post(
       let filename = "crop-capture.jpg";
       let imageUrl = "/uploads/sample-leaf.jpg";
       if (req.file) {
-        imageBuffer = import_fs3.default.readFileSync(req.file.path);
+        imageBuffer = fs3.readFileSync(req.file.path);
         mimeType = req.file.mimetype;
         filename = req.file.filename;
         imageUrl = `/uploads/${req.file.filename}`;
@@ -2183,9 +2148,9 @@ diseaseRouter.post(
           imageBuffer = Buffer.from(imageBase64, "base64");
         }
         filename = `capture-${Date.now()}.jpg`;
-        const savePath = import_path3.default.join(config.uploadDir, filename);
+        const savePath = path3.join(config.uploadDir, filename);
         try {
-          import_fs3.default.writeFileSync(savePath, imageBuffer);
+          fs3.writeFileSync(savePath, imageBuffer);
           imageUrl = `/uploads/${filename}`;
         } catch {
           imageUrl = `data:${mimeType};base64,${imageBuffer.toString("base64")}`;
@@ -2228,7 +2193,7 @@ diseaseRouter.post(
       console.log(`[DISEASE DEBUG] aiResponseReceived = true`);
       console.log(`[DISEASE DEBUG] providerUsed = ${analysis.providerUsed}`);
       const record = {
-        id: (0, import_uuid3.v4)(),
+        id: uuidv43(),
         userId: req.user?.id,
         imageUrl,
         cropIdentified: analysis.crop,
@@ -2278,8 +2243,8 @@ diseaseRouter.get("/:id", (req, res) => {
 });
 
 // src/routes/weather.ts
-var import_express5 = require("express");
-var weatherRouter = (0, import_express5.Router)();
+import { Router as Router5 } from "express";
+var weatherRouter = Router5();
 weatherRouter.get("/current", optionalAuth, async (req, res) => {
   try {
     const { location, lat, lon } = req.query;
@@ -2310,7 +2275,7 @@ weatherRouter.get("/locations", (_req, res) => {
 });
 
 // src/routes/irrigation.ts
-var import_express6 = require("express");
+import { Router as Router6 } from "express";
 
 // src/services/irrigation/irrigationService.ts
 var IrrigationService = class {
@@ -2399,7 +2364,7 @@ var IrrigationService = class {
 };
 
 // src/routes/irrigation.ts
-var irrigationRouter = (0, import_express6.Router)();
+var irrigationRouter = Router6();
 irrigationRouter.post("/calculate", optionalAuth, async (req, res) => {
   try {
     const {
@@ -2446,8 +2411,8 @@ irrigationRouter.post("/calculate", optionalAuth, async (req, res) => {
 });
 
 // src/routes/advisor.ts
-var import_express7 = require("express");
-var advisorRouter = (0, import_express7.Router)();
+import { Router as Router7 } from "express";
+var advisorRouter = Router7();
 advisorRouter.get("/daily", optionalAuth, async (req, res) => {
   try {
     const lang = req.user?.preferredLanguage || req.query.lang || "en";
@@ -2520,17 +2485,17 @@ advisorRouter.post("/chat", optionalAuth, async (req, res) => {
 });
 
 // src/routes/alerts.ts
-var import_express8 = require("express");
+import { Router as Router8 } from "express";
 
 // src/services/alerts/alertService.ts
-var import_uuid4 = require("uuid");
+import { v4 as uuidv44 } from "uuid";
 var AlertService = class {
   static generateAlertsForWeatherAndCrops(weather, crops, lang = "en") {
     const alerts = [];
     const now = (/* @__PURE__ */ new Date()).toISOString();
     if (weather.rainProbability >= 60 || weather.rainfallMm > 5) {
       alerts.push({
-        id: (0, import_uuid4.v4)(),
+        id: uuidv44(),
         type: "rain",
         severity: weather.rainProbability >= 80 ? "critical" : "warning",
         title: lang === "mr" ? "\u{1F327}\uFE0F \u092A\u093E\u0935\u0938\u093E\u091A\u093E \u0907\u0936\u093E\u0930\u093E" : lang === "hi" ? "\u{1F327}\uFE0F \u092D\u093E\u0930\u0940 \u092C\u093E\u0930\u093F\u0936 \u0915\u0940 \u091A\u0947\u0924\u093E\u0935\u0928\u0940" : "\u{1F327}\uFE0F Rain Alert",
@@ -2541,7 +2506,7 @@ var AlertService = class {
     }
     if (weather.temperature >= 36) {
       alerts.push({
-        id: (0, import_uuid4.v4)(),
+        id: uuidv44(),
         type: "heat",
         severity: "warning",
         title: lang === "mr" ? "\u{1F525} \u0924\u0940\u0935\u094D\u0930 \u0909\u0937\u094D\u0923\u0924\u0947\u091A\u093E \u0907\u0936\u093E\u0930\u093E" : lang === "hi" ? "\u{1F525} \u0905\u0924\u094D\u092F\u0927\u093F\u0915 \u0917\u0930\u094D\u092E\u0940 \u0915\u0940 \u091A\u0947\u0924\u093E\u0935\u0928\u0940" : "\u{1F525} High Heat Advisory",
@@ -2553,7 +2518,7 @@ var AlertService = class {
     if (weather.humidity >= 78 && weather.temperature >= 20 && weather.temperature <= 30) {
       const cropListStr = crops.map((c) => c.cropName).join(", ") || "Tomato, Chilli, Cotton";
       alerts.push({
-        id: (0, import_uuid4.v4)(),
+        id: uuidv44(),
         type: "disease",
         severity: "warning",
         title: lang === "mr" ? "\u{1F9A0} \u092C\u0941\u0930\u0936\u0940\u091C\u0928\u094D\u092F \u0930\u094B\u0917\u093E\u091A\u093E \u0927\u094B\u0915\u093E" : lang === "hi" ? "\u{1F9A0} \u092B\u092B\u0942\u0902\u0926 \u091C\u0928\u093F\u0924 \u0930\u094B\u0917 \u0915\u093E \u091C\u094B\u0916\u093F\u092E" : "\u{1F9A0} Fungal Disease Risk Alert",
@@ -2564,7 +2529,7 @@ var AlertService = class {
     }
     if (weather.agriculturalImpact.spraySuitability.status === "poor") {
       alerts.push({
-        id: (0, import_uuid4.v4)(),
+        id: uuidv44(),
         type: "pest",
         severity: "info",
         title: lang === "mr" ? "\u26A0\uFE0F \u0906\u091C \u092B\u0935\u093E\u0930\u0923\u0940 \u091F\u093E\u0933\u093E" : lang === "hi" ? "\u26A0\uFE0F \u0906\u091C \u091B\u093F\u0921\u093C\u0915\u093E\u0935 \u0928 \u0915\u0930\u0947\u0902" : "\u26A0\uFE0F Spraying Not Recommended Today",
@@ -2578,7 +2543,7 @@ var AlertService = class {
 };
 
 // src/routes/alerts.ts
-var alertsRouter = (0, import_express8.Router)();
+var alertsRouter = Router8();
 alertsRouter.get("/", optionalAuth, async (req, res) => {
   try {
     const lang = req.user?.preferredLanguage || req.query.lang || "en";
@@ -2604,7 +2569,7 @@ alertsRouter.put("/:id/read", (req, res) => {
 });
 
 // src/app.ts
-var app = (0, import_express9.default)();
+var app = express();
 var allowedOrigins = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
@@ -2618,7 +2583,7 @@ var allowedOrigins = [
   "http://localhost",
   "https://localhost"
 ];
-app.use((0, import_cors.default)({
+app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin) || origin.endsWith(".vercel.app") || config.clientUrl && origin === config.clientUrl || /^https?:\/\/([a-zA-Z0-9-]+\.)*vercel\.app(:[0-9]+)?$/.test(origin) || /^http:\/\/(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+)(:\d+)?$/.test(origin) || /^capacitor:\/\/localhost(:[0-9]+)?$/.test(origin) || /^https?:\/\/localhost(:[0-9]+)?$/.test(origin)) {
@@ -2630,8 +2595,8 @@ app.use((0, import_cors.default)({
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
-app.use(import_express9.default.json({ limit: "15mb" }));
-app.use(import_express9.default.urlencoded({ extended: true, limit: "15mb" }));
+app.use(express.json({ limit: "15mb" }));
+app.use(express.urlencoded({ extended: true, limit: "15mb" }));
 app.use((req, _res, next) => {
   if (!req.url.startsWith("/api") && !req.url.startsWith("/uploads")) {
     req.url = `/api${req.url.startsWith("/") ? req.url : `/${req.url}`}`;
@@ -2660,7 +2625,7 @@ app.get("/api", sendApiInfo);
 app.get("/api/", sendApiInfo);
 app.get("/api/health", sendHealthCheck);
 app.get("/health", sendHealthCheck);
-app.use("/uploads", import_express9.default.static(config.uploadDir));
+app.use("/uploads", express.static(config.uploadDir));
 app.use("/api/auth", authRouter);
 app.use("/api/profile", profileRouter);
 app.use("/api/crops", cropsRouter);
@@ -2683,8 +2648,7 @@ app.use((err, _req, res, _next) => {
   });
 });
 var app_default = app;
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  app
-});
-module.exports = app_default; module.exports.default = app_default; module.exports.app = app_default;
+export {
+  app,
+  app_default as default
+};

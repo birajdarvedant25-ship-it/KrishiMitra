@@ -8,8 +8,13 @@
     },
     "backend": {
       "root": "backend/",
-      "entrypoint": "app.js",
-      "buildCommand": "npm run build"
+      "entrypoint": "app.mjs",
+      "buildCommand": "npm run build",
+      "functions": {
+        "**": {
+          "includeFiles": "package.json"
+        }
+      }
     }
   },
   "rewrites": [
