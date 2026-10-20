@@ -26,13 +26,23 @@ test('Vercel Backend Service Entrypoint Integration Suite (app.js & app.mjs)', a
   const { default: appMjs } = await import('../app.mjs');
   assert.equal(typeof appMjs, 'function', 'backend/app.mjs must export an Express application');
 
-  // Import backend/app.cjs
-  const { default: appCjs } = await import('../app.cjs');
-  assert.equal(typeof (appCjs.default || appCjs.app || appCjs), 'function', 'backend/app.cjs must export an Express application');
+  // Verify Vercel Serverless Function entrypoints under api/
+  const apiIndexPath = path.resolve(backendRoot, '../api/index.js');
+  const apiCatchAllPath = path.resolve(backendRoot, '../api/[...path].js');
+  assert.ok(fs.existsSync(apiIndexPath), 'api/index.js must exist as Vercel Node function entrypoint');
+  assert.ok(fs.existsSync(apiCatchAllPath), 'api/[...path].js must exist as Vercel catch-all function entrypoint');
 
-  // Start HTTP server using the Express app
+  // Import api/index.js
+  const { default: apiIndexHandler } = await import('../../api/index.js');
+  assert.equal(typeof apiIndexHandler, 'function', 'api/index.js must export a handler function');
+
+  // Import api/[...path].js
+  const { default: apiCatchAllHandler } = await import('../../api/[...path].js');
+  assert.equal(typeof apiCatchAllHandler, 'function', 'api/[...path].js must export a handler function');
+
+  // Start HTTP server using the api/index.js handler
   const server = http.createServer((req, res) => {
-    return appMjs(req, res);
+    return apiIndexHandler(req, res);
   });
 
   await new Promise((resolve) => server.listen(0, resolve));
