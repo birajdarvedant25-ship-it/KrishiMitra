@@ -208,5 +208,12 @@ The application is built **mobile-first**:
 
 ## 📄 License
 MIT License. Created with ❤️ for Indian farmers.
-#   K r i s h i M i t r a  
+#   K r i s h i M i t r a 
+ 
  "# KrishiMitra" 
+
+## 🌐 Live Website
+
+**Try KrishiMitra online:** [Open KrishiMitra](krishimitra-mocha-two.vercel.app)
+
+KrishiMitra is an AI-powered farming assistant that helps farmers with crop disease detection, weather updates, crop management, and personalized farming advice.
