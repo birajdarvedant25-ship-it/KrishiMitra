@@ -23,6 +23,12 @@ test('Vercel Backend Service Entrypoint Integration Suite (app.js & app.mjs)', a
   assert.ok(fs.existsSync(appCjsPath), 'backend/app.cjs must exist as production CJS entrypoint');
   assert.ok(fs.existsSync(distAppJsPath), 'backend/dist/app.js must exist');
 
+  // Verify Vercel Serverless Function entrypoints under api/
+  const apiIndexPath = path.resolve(backendRoot, '../api/index.js');
+  const apiCatchAllPath = path.resolve(backendRoot, '../api/[...path].js');
+  assert.ok(fs.existsSync(apiIndexPath), 'api/index.js must exist as Vercel Node function entrypoint');
+  assert.ok(fs.existsSync(apiCatchAllPath), 'api/[...path].js must exist as Vercel catch-all function entrypoint');
+
   // Verify that backend/app.js and root/app.js export an Express application
   const { default: backendAppJs } = await import('../app.js');
   assert.equal(typeof backendAppJs, 'function', 'backend/app.js must export an Express application');
@@ -33,9 +39,15 @@ test('Vercel Backend Service Entrypoint Integration Suite (app.js & app.mjs)', a
   const { default: appMjs } = await import('../app.mjs');
   assert.equal(typeof appMjs, 'function', 'backend/app.mjs must export an Express application');
 
-  // Start HTTP server using the Express app from app.mjs
+  // Import api/index.js and api/[...path].js
+  const { default: apiIndexHandler } = await import('../../api/index.js');
+  assert.equal(typeof apiIndexHandler, 'function', 'api/index.js must export a handler function');
+  const { default: apiCatchAllHandler } = await import('../../api/[...path].js');
+  assert.equal(typeof apiCatchAllHandler, 'function', 'api/[...path].js must export a handler function');
+
+  // Start HTTP server using the api/index.js handler
   const server = http.createServer((req, res) => {
-    return appMjs(req, res);
+    return apiIndexHandler(req, res);
   });
 
   await new Promise((resolve) => server.listen(0, resolve));
@@ -120,5 +132,22 @@ test('Vercel Backend Service Entrypoint Integration Suite (app.js & app.mjs)', a
     const data = await res.json();
     assert.equal(data.success, true);
     assert.ok(data.advisory.farmingAdvice !== undefined);
+  });
+
+  await t.test('8. api/[...path].js catch-all routes correctly with query.path', async () => {
+    const catchAllServer = http.createServer((req, res) => {
+      req.query = { path: ['health'] };
+      return apiCatchAllHandler(req, res);
+    });
+    await new Promise((resolve) => catchAllServer.listen(0, resolve));
+    const catchAllPort = catchAllServer.address().port;
+    try {
+      const res = await fetch(`http://localhost:${catchAllPort}/api/[...path]?path=health`);
+      assert.equal(res.status, 200);
+      const data = await res.json();
+      assert.equal(data.status, 'ok');
+    } finally {
+      catchAllServer.close();
+    }
   });
 });
