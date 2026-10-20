@@ -9,40 +9,18 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const backendRoot = path.resolve(__dirname, '..');
 
-test('Vercel Backend Service Entrypoint Integration Suite (app.js & app.mjs)', async (t) => {
-  // Verify all build artifacts exist
-  const appJsPath = path.resolve(backendRoot, 'app.js');
+test('Vercel Backend Service Entrypoint Integration Suite (app.mjs)', async (t) => {
+  // Verify production service entrypoint build artifact exists
   const appMjsPath = path.resolve(backendRoot, 'app.mjs');
-  const appCjsPath = path.resolve(backendRoot, 'app.cjs');
-  assert.ok(fs.existsSync(appJsPath), 'backend/app.js must exist for Vercel Express preset');
-  assert.ok(fs.existsSync(appMjsPath), 'backend/app.mjs must exist for ESM runtime');
-  assert.ok(fs.existsSync(appCjsPath), 'backend/app.cjs must exist for CommonJS runtime');
-
-  // Import backend/app.js
-  const { default: appJs } = await import('../app.js');
-  assert.equal(typeof appJs, 'function', 'backend/app.js must export an Express application');
+  assert.ok(fs.existsSync(appMjsPath), 'backend/app.mjs must exist as production service entrypoint');
 
   // Import backend/app.mjs
   const { default: appMjs } = await import('../app.mjs');
   assert.equal(typeof appMjs, 'function', 'backend/app.mjs must export an Express application');
 
-  // Verify Vercel Serverless Function entrypoints under api/
-  const apiIndexPath = path.resolve(backendRoot, '../api/index.js');
-  const apiCatchAllPath = path.resolve(backendRoot, '../api/[...path].js');
-  assert.ok(fs.existsSync(apiIndexPath), 'api/index.js must exist as Vercel Node function entrypoint');
-  assert.ok(fs.existsSync(apiCatchAllPath), 'api/[...path].js must exist as Vercel catch-all function entrypoint');
-
-  // Import api/index.js
-  const { default: apiIndexHandler } = await import('../../api/index.js');
-  assert.equal(typeof apiIndexHandler, 'function', 'api/index.js must export a handler function');
-
-  // Import api/[...path].js
-  const { default: apiCatchAllHandler } = await import('../../api/[...path].js');
-  assert.equal(typeof apiCatchAllHandler, 'function', 'api/[...path].js must export a handler function');
-
-  // Start HTTP server using the api/index.js handler
+  // Start HTTP server using the Express app from app.mjs
   const server = http.createServer((req, res) => {
-    return apiIndexHandler(req, res);
+    return appMjs(req, res);
   });
 
   await new Promise((resolve) => server.listen(0, resolve));
