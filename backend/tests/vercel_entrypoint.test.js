@@ -9,10 +9,31 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const backendRoot = path.resolve(__dirname, '..');
 
-test('Vercel Backend Service Entrypoint Integration Suite (app.mjs)', async (t) => {
-  // Verify production service entrypoint build artifact exists
+test('Vercel Backend Service Entrypoint Integration Suite (app.js & app.mjs)', async (t) => {
+  // Verify all required production service entrypoint build artifacts exist
+  const appJsPath = path.resolve(backendRoot, 'app.js');
+  const rootAppJsPath = path.resolve(backendRoot, '../app.js');
   const appMjsPath = path.resolve(backendRoot, 'app.mjs');
-  assert.ok(fs.existsSync(appMjsPath), 'backend/app.mjs must exist as production service entrypoint');
+  const appCjsPath = path.resolve(backendRoot, 'app.cjs');
+  const distAppJsPath = path.resolve(backendRoot, 'dist/app.js');
+
+  assert.ok(fs.existsSync(appJsPath), 'backend/app.js must exist as production service entrypoint');
+  assert.ok(fs.existsSync(rootAppJsPath), 'app.js (root) must exist for top-level entrypoint resolution');
+  assert.ok(fs.existsSync(appMjsPath), 'backend/app.mjs must exist as production ESM entrypoint');
+  assert.ok(fs.existsSync(appCjsPath), 'backend/app.cjs must exist as production CJS entrypoint');
+  assert.ok(fs.existsSync(distAppJsPath), 'backend/dist/app.js must exist');
+
+  // Verify that backend/app.js and root/app.js do NOT contain unbundled raw ESM import statements
+  const appJsHead = fs.readFileSync(appJsPath, 'utf8').substring(0, 100);
+  assert.ok(
+    !appJsHead.startsWith("import "),
+    'backend/app.js must be a self-contained CommonJS bundle (not raw ESM) for Vercel Lambda compatibility'
+  );
+  const rootAppJsHead = fs.readFileSync(rootAppJsPath, 'utf8').substring(0, 100);
+  assert.ok(
+    !rootAppJsHead.startsWith("import "),
+    'root app.js must be a self-contained CommonJS bundle (not raw ESM) for Vercel Lambda compatibility'
+  );
 
   // Import backend/app.mjs
   const { default: appMjs } = await import('../app.mjs');

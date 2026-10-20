@@ -44807,7 +44807,11 @@ Guidance:
         const response = await chat.sendMessage(`${systemPrompt}
 
 Farmer Query: ${message}`);
-        return response.response.text();
+        const text = response.response.text();
+        if (text && text.trim()) {
+          return text.trim();
+        }
+        throw new Error("Gemini returned an empty chat response");
       } catch (err) {
         lastError = err;
         console.warn(`[GEMINI CHAT] Model ${modelName} failed:`, err.message);
