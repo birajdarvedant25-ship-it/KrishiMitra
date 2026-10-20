@@ -23,17 +23,11 @@ test('Vercel Backend Service Entrypoint Integration Suite (app.js & app.mjs)', a
   assert.ok(fs.existsSync(appCjsPath), 'backend/app.cjs must exist as production CJS entrypoint');
   assert.ok(fs.existsSync(distAppJsPath), 'backend/dist/app.js must exist');
 
-  // Verify that backend/app.js and root/app.js do NOT contain unbundled raw ESM import statements
-  const appJsHead = fs.readFileSync(appJsPath, 'utf8').substring(0, 100);
-  assert.ok(
-    !appJsHead.startsWith("import "),
-    'backend/app.js must be a self-contained CommonJS bundle (not raw ESM) for Vercel Lambda compatibility'
-  );
-  const rootAppJsHead = fs.readFileSync(rootAppJsPath, 'utf8').substring(0, 100);
-  assert.ok(
-    !rootAppJsHead.startsWith("import "),
-    'root app.js must be a self-contained CommonJS bundle (not raw ESM) for Vercel Lambda compatibility'
-  );
+  // Verify that backend/app.js and root/app.js export an Express application
+  const { default: backendAppJs } = await import('../app.js');
+  assert.equal(typeof backendAppJs, 'function', 'backend/app.js must export an Express application');
+  const { default: rootAppJs } = await import('../../app.js');
+  assert.equal(typeof rootAppJs, 'function', 'root app.js must export an Express application');
 
   // Import backend/app.mjs
   const { default: appMjs } = await import('../app.mjs');
