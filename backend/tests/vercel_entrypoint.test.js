@@ -18,6 +18,10 @@ test('Vercel Backend Service Entrypoint Integration Suite (app.js & app.mjs)', a
   assert.ok(fs.existsSync(appMjsPath), 'backend/app.mjs must exist for ESM runtime');
   assert.ok(fs.existsSync(appCjsPath), 'backend/app.cjs must exist for CommonJS runtime');
 
+  // Import backend/app.js
+  const { default: appJs } = await import('../app.js');
+  assert.equal(typeof appJs, 'function', 'backend/app.js must export an Express application');
+
   // Import backend/app.mjs
   const { default: appMjs } = await import('../app.mjs');
   assert.equal(typeof appMjs, 'function', 'backend/app.mjs must export an Express application');
